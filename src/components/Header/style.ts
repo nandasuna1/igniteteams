@@ -10,8 +10,8 @@ export const Container = styled.View`
 `;
 
 export const Logo = styled.Image`
-width: 46px;
-height:56px;
+    width: 46px;
+    height:56px;
 `
 
 export const BackButton = styled.TouchableOpacity`
