@@ -17,11 +17,13 @@ import { playersGetByGroupAndTeam } from '@storage/player/playerGetByGroupAndTea
 import { PlayerStorageDTO } from '@storage/player/PlayerStorageDTO'
 import { playerRemoveByGroup } from '@storage/player/playerRemoveByGroup'
 import { groupRemoveByName } from '@storage/group/groupRemoveByName'
+import { Loading } from '@components/Loading'
 
 type RouteParams = {
     group: string;
 }
 export function Players() {
+    const [isLoading, setIsLoading] = useState(true);
     const [team, setTeam] = useState('Time A');
     const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
     const [newPlayerName, setNewPlayerName] = useState('');
@@ -64,11 +66,16 @@ export function Players() {
 
     async function fetchPlayersByTeam() {
         try{
+            setIsLoading(true);
+
             const playersByTeam = await playersGetByGroupAndTeam(group, team);
+
             setPlayers(playersByTeam);
         } catch (error) {
             console.log(error);
             Alert.alert('Pessoas', 'Não foi possivel carregar o time')
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -128,7 +135,7 @@ export function Players() {
             </Form>
 
             <HeaderList>
-            <FlatList 
+            {isLoading ? <Loading/> : <FlatList 
                 data={['Time A', 'Time B']}
                 keyExtractor={item=>item}
                 renderItem={({item}) => (
@@ -140,6 +147,7 @@ export function Players() {
                 )}
                 horizontal
             />
+            }
             <NumberOfPlayers>
                 {players.length}
             </NumberOfPlayers>
