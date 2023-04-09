@@ -17,7 +17,7 @@
         "./src/storage/*"
       ],
       "@utils/*": [
-        "./src/utls/*"
+        "./src/utils/*"
       ]
     }
   }

@@ -9,7 +9,7 @@ export function Routes() {
     return (
         <View style={{flex:1, backgroundColor:COLORS.GRAY_600}}>
 
-<NavigationContainer>
+        <NavigationContainer>
             <AppRoutes/>
         </NavigationContainer>
         </View>
